@@ -1,0 +1,15 @@
+[default]
+NAME = ""
+SECRET_KEY = ""
+DEBUG = true
+ALLOWED_HOSTS = []
+DEFAULT_SETTINGS_PATHS = ["settings.toml", ".secrets.toml"]
+[development]
+NAME = "developer"
+DEBUG = true
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+[production]
+NAME = "admin"
+DEBUG = false
+SECRET_KEY = "xxx"
+ALLOWED_HOSTS  = ["127.0.0.1", "localhost", "mininscode.heroku.com"]
