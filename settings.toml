@@ -4,10 +4,15 @@ SECRET_KEY = ""
 DEBUG = true
 ALLOWED_HOSTS = []
 DEFAULT_SETTINGS_PATHS = ["settings.toml", ".secrets.toml"]
+DATABASE_USERNAME = ""
+DATABASE_NAME = ""
 [development]
 NAME = "developer"
 DEBUG = true
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+DATABASE_USERNAME = "life_db_admin"
+DATABASE_NAME = "lifequality"
+
 [production]
 NAME = "admin"
 DEBUG = false
