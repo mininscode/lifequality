@@ -3,14 +3,15 @@ NAME = ""
 SECRET_KEY = ""
 DEBUG = true
 ALLOWED_HOSTS = []
-DEFAULT_SETTINGS_PATHS = ["settings.toml", ".secrets.toml"]
+DEFAULT_SETTINGS_PATHES = ['settings.toml', '.secrets.toml']
 DATABASE_USERNAME = ""
 DATABASE_NAME = ""
+
 [development]
 NAME = "developer"
 DEBUG = true
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-DATABASE_USERNAME = "life_db_admin"
+DATABASE_USERNAME = "postgres"
 DATABASE_NAME = "lifequality"
 
 [production]
@@ -18,3 +19,5 @@ NAME = "admin"
 DEBUG = false
 SECRET_KEY = "xxx"
 ALLOWED_HOSTS  = ["127.0.0.1", "localhost", "mininscode.heroku.com"]
+DATABASE_USERNAME = "postgres"
+DATABASE_NAME = "lifequality"
