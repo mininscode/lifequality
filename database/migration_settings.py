@@ -1,2 +1,4 @@
 from database import Base
 from database.users.models import User
+from database.clients.models import Client
+from database.houses.models import House
