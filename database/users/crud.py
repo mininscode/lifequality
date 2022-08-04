@@ -1,7 +1,7 @@
-""" This module contains CRUD methods for database User model"""
+"""This module contains CRUD methods for database User model"""
 
-from sqlalchemy.orm import Session
 from pydantic import EmailStr
+from sqlalchemy.orm import Session
 
 from database.users import models, schemas
 from services import hash_password
