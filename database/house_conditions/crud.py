@@ -2,7 +2,7 @@
 
 from sqlalchemy.orm import Session
 
-from database.conditions import models, schemas
+from database.house_conditions import models, schemas
 
 
 # CREATE data in database
