@@ -15,4 +15,5 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     citizens = relationship('Client', back_populates='user')
+    employees = relationship('Employee', back_populates='user')
 
