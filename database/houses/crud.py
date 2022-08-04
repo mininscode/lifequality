@@ -50,8 +50,8 @@ def get_all_houses_by_condition(db: Session, condition: str):
     return db.query(models.House).filter(models.House.condition == \
            condition).first()
 
-def get_all_houses(db: Session):
-    return db.query(models.House).all()
+def get_all_houses(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.House).offset(skip).limit(limit).all()
 
 # UPDATE data in database
 def update_house_city(db: Session, address: AddressType, city: str):
