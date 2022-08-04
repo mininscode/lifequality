@@ -59,9 +59,8 @@ def get_citizen_passport_by_citizen_id(db: Session, citizen_id: int):
     return db.query(models.ClientPassport).filter(models.ClientPassport.\
            citizen_id == citizen_id).first()
 
-def get_all_citizens_passports(db: Session, citizen_id: int):
-    return db.query(models.ClientPassport).filter(models.ClientPassport.\
-           citizen_id == citizen_id).all()
+def get_all_citizens_passports(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.ClientPassport).offset(skip).limit(limit).all()
 
 # UPDATE data in database
 def update_citizen_name(db: Session, citizen_id: int, name: str):
