@@ -11,3 +11,10 @@ class AddressType(TypedDict):
     street: str
     house_number: int
 
+class FullNameType(TypedDict):
+    """Type for validation fullname"""
+
+    name: str
+    surname: str
+    patronymic: str
+
