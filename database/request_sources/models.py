@@ -5,7 +5,7 @@ from database import Base
 
 
 class RequestSource(Base):
-    __tablename__ = 'sources'
+    __tablename__ = 'request_sources'
 
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String(50), nullable=False)
