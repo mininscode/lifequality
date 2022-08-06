@@ -16,9 +16,5 @@ class House(Base):
                        nullable=False)
     
     citizens = relationship('Client', back_populates='house')
-    treatments = relationship('Treatment', back_populates='house')
-    meetings = relationship('Meeting', back_populates='house')
-    contractors = relationship('Contractor', back_populates='house')
     conditions = relationship('HouseCondition', back_populates='conditions')
-    contracts = relationship('Contract', back_population='house')
 
