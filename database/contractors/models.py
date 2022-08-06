@@ -5,6 +5,8 @@ from database import Base
 
 
 class Contractor(Base):
+    __tablename__ = 'contractors'
+
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
     contract = Column(Integer, ForeignKey('contracts.id'), nullable=False)

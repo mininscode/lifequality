@@ -1,3 +1,5 @@
+"""This module contains CRUD operations for Contractor model"""
+
 from sqlalchemy.orm import Session
 
 from database.contractors import models, schemas
