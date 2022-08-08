@@ -18,3 +18,4 @@ class House(Base):
     citizens = relationship('Client', back_populates='house')
     conditions = relationship('HouseCondition', back_populates='conditions')
 
+    # TODO: add many-to-many relations with model Contractor
