@@ -12,7 +12,6 @@ class Contractor(Base):
     city = Column(String(100), nullable=False)
     street = Column(String(100), nullable=False)
     building = Column(Integer, nullable=False)
-    contract_id = Column(Integer, ForeignKey('contacts.id'), nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     contracts = relationship('Contract', back_populates='contractor')
