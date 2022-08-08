@@ -19,3 +19,5 @@ class Contract(Base):
     contractor = relationship('Contractor', back_populates='contracts')
     house = relationship('House', back_populates='contracts')
 
+    # TODO: add many-to-many relations with model Contract
+
