@@ -37,6 +37,16 @@ def get_contractor_by_user_id(db: Session, user_id: int):
     return db.query(models.Contractor).filter(\
                     models.Contractor.user_id == user_id).first()
 
+def get_contractors_by_emergency_service_status(db: Session, \
+                                               emergency_status: bool, \
+                                               skip: int = 0, \
+                                               limit: int = 100):
+    return db.query(models.Contractor).filter(\
+                    models.Contractor.is_emergency_service == \
+                    emergency_status).offset(skip).limit(limit).all()
+def get_all_contrators(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Contractor).offset(skip).limit(limit).all()
+
 # UPDATE data in database
 def update_contractor_name(db: Session, contractor_id: int, new_name: str):
     db_contractor = get_contractor_by_id(db, contractor_id)
@@ -80,6 +90,14 @@ def update_contractor_user_id(db: Session, contractor_id: int, \
                               new_user_id: int):
     db_contractor = get_contractor_by_id(db, contractor_id)
     db_contractor.user_id = new_user_id
+    db.commit()
+    db.refresh(db_contractor)
+    return db_contractor
+
+def update_contractor_emergency_status(db: Session, contractor_id: int, \
+                                       new_emergency_status: bool):
+    db_contractor = get_contractor_by_id(db, contractor_id)
+    db_contractor.is_emegrency_service = new_emergency_status
     db.commit()
     db.refresh(db_contractor)
     return db_contractor

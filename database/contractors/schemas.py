@@ -9,6 +9,7 @@ class Contractor(BaseModel):
     building: int
     contract_id: int
     user_id: int
+    is_emergency_service: bool
 
     class Config:
         orm_mode = True
