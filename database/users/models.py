@@ -16,4 +16,5 @@ class User(Base):
 
     citizens = relationship('Client', back_populates='user')
     employees = relationship('Employee', back_populates='user')
+    contractors = relationship('Conractor', back_populates='user')
 
