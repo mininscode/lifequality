@@ -5,3 +5,12 @@ from database.houses.models import House
 from database.house_conditions.models import HouseCondition
 from database.employees.models import Employee
 from database.request_sources.models import RequestSource
+from database.request_statuses.models import RequestStatus
+from database.contractors.models import Contractor
+from database.meetings.models import Meeting
+from database.works.models import Work
+from database.contracts.models import Contract
+from database.call_records.models import CallRecord
+from database.client_requests.models import ClientRequest
+from database.consultations.models import Consultation 
+from database.work_orders.models import WorkOrder
