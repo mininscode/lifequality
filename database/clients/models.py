@@ -21,6 +21,7 @@ class Client(Base):
     passports = relationship('ClientPassport', back_populates='citizen')
     house = relationship('House', back_populates='citizens')
     user = relationship('User', back_populates='citizens')
+    citizen_requests = relationship('CitizenRequest', back_populates='citizen')
     
 class ClientPassport(Base):
     __tablename__ = 'citizens_passports'
