@@ -17,7 +17,6 @@ def create_client_request(db: Session, request: schemas.ClientRequest):
         created_at=request.created_at,
         updated_at=request.updated_at,
         closed_at=request.closed_at,
-        planed_duration=request.planed_duration,
         fact_duration=request.fact_duration,
         request_status=request.request_status,
         citizen_feedback=request.citizen_feedback,
@@ -46,7 +45,7 @@ def get_client_requests_by_address(db: Session, address: AddressType, \
                     models.ClientRequest.address == address).offset(\
                     skip).limit(limit).all()
 
-def get_client_requests_by_source(db: Session, request_source: str, \
+def get_client_requests_by_source(db: Session, request_source: int, \
                                   skip: int = 0, limit: int = 100):
     return db.query(models.ClientRequest).filter(\
                     models.ClientRequest.request_source == \
@@ -71,13 +70,6 @@ def get_client_requests_by_close_date(db: Session, closed_at: datetime, \
                     models.ClientRequest.closed_at == \
                     closed_at).offset(skip).limit(limit).all()
 
-def get_client_requests_by_planed_duration(db: Session, \
-                                           planed_duration: datetime, \
-                                           skip: int = 0, limit: int = 100):
-    return db.query(models.ClientRequest).filter(\
-                    models.ClientRequest.planed_duration == \
-                    planed_duration).offset(skip).limit(limit).all()
-
 def get_client_requests_by_fact_duration(db: Session, \
                                          fact_duration: datetime, \
                                          skip: int = 0, limit: int = 100):
@@ -85,7 +77,7 @@ def get_client_requests_by_fact_duration(db: Session, \
                     models.ClientRequest.fact_duration == \
                     fact_duration).offset(skip).limit(limit).all()
 
-def get_client_requests_by_request_status(db: Session, request_status: str, \
+def get_client_requests_by_request_status(db: Session, request_status: int, \
                                           skip: int = 0, limit: int = 100):
     return db.query(models.ClientRequest).filter(\
                     models.ClientRequest.request_status == \
@@ -158,13 +150,6 @@ def update_client_request_close_date(db: Session, request_id: int, \
                                      closed_at: datetime):
     db_request = get_client_request_by_id(db, request_id)
     db_request.closed_at = closed_at
-    db.commit()
-    db.refresh(db_request)
-    return db_request
-def update_client_request_planed_duration(db: Session, request_id: int, \
-                                          planed_duration: datetime):
-    db_request = get_client_request_by_id(db, request_id)
-    db_request.planed_duration = planed_duration
     db.commit()
     db.refresh(db_request)
     return db_request

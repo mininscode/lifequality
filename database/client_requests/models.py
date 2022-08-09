@@ -10,17 +10,15 @@ class ClientRequest(Base):
 
     id = Column(BigInteger, primary_key=True, index=True)
     text = Column(Text, nullable=False)
-    citizen_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
+    citizen_id = Column(Integer, ForeignKey('citizens.id'), nullable=False)
     address = Column(String(200), nullable=False)
-    request_source = Column(String(50), ForeignKey('request_sources.name'), \
+    request_source = Column(Integer, ForeignKey('request_sources.id'), \
                             nullable=False)
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=False)
     closed_at = Column(DateTime, nullable=True)
-    planed_duration = Column(DateTime, ForeignKey('works.duration'), \
-                             nullable=False)
     fact_duration = Column(DateTime, nullable=False)
-    request_status = Column(String(50), ForeignKey('request_statuses.name'), \
+    request_status = Column(Integer, ForeignKey('request_statuses.id'), \
                             nullable=False)
     citizen_feedback = Column(String(200), nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)

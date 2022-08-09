@@ -9,13 +9,12 @@ class ClientRequest(BaseModel):
     text: str
     citizen_id: int
     address: AddressType
-    request_source: str
+    request_source: int
     created_at: datetime
     updated_at: datetime
     closed_at: datetime
-    planed_duration: datetime
     fact_duration: datetime
-    request_status: str
+    request_status: int
     citizen_feedback: str
     is_active: bool
     record_id: int
