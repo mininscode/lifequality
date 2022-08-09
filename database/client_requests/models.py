@@ -31,6 +31,7 @@ class ClientRequest(Base):
     record = relationship('CallRecord', back_populates='citizen_requests')
     documents = relationship('RequestDocument', back_populates='request')
     comments = relationship('Comment', back_populates='citizen_request')
+    likes =  relationship('Like', back_populates='citizen_request')
 
     # TODO: add many-to-many relations with Contractor model
     # TODO: add many-to-many relations with Work model
