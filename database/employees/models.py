@@ -17,6 +17,7 @@ class Employee(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     user = relationship('User', back_populates='employees')
+    records = relationship('CallRecord', back_populates='records')
 
     #TODO: add many-to-many relations with ClientRequest model
 
