@@ -10,4 +10,4 @@ class RequestSource(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String(50), nullable=False)
 
-    citizen_requests = relationship('ClientRequest', back_population='source')
+    citizen_requests = relationship('ClientRequest', back_populates='source')
