@@ -10,5 +10,5 @@ class RequestStatus(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
 
-    citizen_requests = relationship('CitizenRequest', back_populates='status')
+    citizen_requests = relationship('ClientRequest', back_populates='status')
 
