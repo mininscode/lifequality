@@ -14,3 +14,5 @@ from database.call_records.models import CallRecord
 from database.client_requests.models import ClientRequest
 from database.consultations.models import Consultation 
 from database.request_documents.models import RequestDocument
+from database.comments.models import Comment
+from database.likes.models import Like
