@@ -24,11 +24,13 @@ class ClientRequest(Base):
                             nullable=False)
     citizen_feedback = Column(String(200), nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)
+    record_id = Column(Integer, ForeignKey('call_records.id'), nullable=True)
 
     citizen = relationship('Client', back_populates='citizen_requests')
     status = relationship('RequestStatus', back_populates='citizen_requests')
     comments = relationship('Comment', back_populates='citizen_request')
     source = relationship('RequestSource', back_populates='citizen_requests')
+    record = relationship('CallRecord', back_populates='client_requests')
 
     # TODO: add many-to-many relations with Contractor model
     # TODO: add many-to-many relations with Work model

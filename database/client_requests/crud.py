@@ -21,7 +21,8 @@ def create_client_request(db: Session, request: schemas.ClientRequest):
         fact_duration=request.fact_duration,
         request_status=request.request_status,
         citizen_feedback=request.citizen_feedback,
-        is_active=request.is_active
+        is_active=request.is_active,
+        record_id=request.record_id
     )
     db.add(db_request)
     db.commit()
@@ -195,6 +196,14 @@ def update_client_request_activity_status(db: Session, request_id: int, \
                                           is_active: bool):
     db_request = get_client_request_by_id(db, request_id)
     db_request.is_active = is_active
+    db.commit()
+    db.refresh(db_request)
+    return db_request
+
+def update_client_request_call_record(db: Session, request_id: int, \
+                                      record_id: int):
+    db_request = get_client_request_by_id(db, request_id)
+    db_request.record_id = record_id
     db.commit()
     db.refresh(db_request)
     return db_request

@@ -18,6 +18,7 @@ class ClientRequest(BaseModel):
     request_status: str
     citizen_feedback: str
     is_active: bool
+    record_id: int
     
     class Config:
         orm_mode = True
