@@ -14,4 +14,5 @@ class Work(Base):
 
     # TODO: add many-to-many relations with model Contractor
     # TODO: add many-to-many relations with model Contract
+    # TODO: add many-to-many relations witth model WorkOrder
 
