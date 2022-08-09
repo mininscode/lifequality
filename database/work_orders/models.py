@@ -11,7 +11,7 @@ class WorkOrder(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     file_path = Column(String(200), nullable=False)
     created_at = Column(DateTime, nullable=False)
-    citizen_request_id = Column(Integer, ForeignKey('client_requests.id'), \
+    citizen_request_id = Column(Integer, ForeignKey('citizen_requests.id'), \
                                 nullable=False)
     contractor_id = Column(Integer, ForeignKey('contractors.id'), \
                            nullable=False)
