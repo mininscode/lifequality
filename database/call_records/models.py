@@ -15,7 +15,7 @@ class CallRecord(Base):
     employee_id = Column(Integer, ForeignKey('employees.id'), nullable=False)
 
 
-    client_requests = relationship('ClientRequest', back_populates='record')
+    citizen_requests = relationship('ClientRequest', back_populates='record')
     consultations = relationship('Consultation', back_populates='record')
     citizen = relationship('Client', back_populates='records')
     employee = relationship('Employee', back_populates='records')
