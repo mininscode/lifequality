@@ -18,5 +18,5 @@ class Employee(Base):
 
     user = relationship('User', back_populates='employees')
 
-    #TODO: add many-to-many relations with CitizenRequest model
+    #TODO: add many-to-many relations with ClientRequest model
 
