@@ -6,7 +6,6 @@ from database import Base
 
 
 class CallRecord(Base):
-    __tablename__ = 'call_records'
 
     id = Column(BigInteger, primary_key=True, index=True)
     file_path = Column(String(200), nullable=False)
@@ -14,9 +13,22 @@ class CallRecord(Base):
     citizen_id = Column(Integer, ForeignKey('citizens.id'), nullable=False)
     employee_id = Column(Integer, ForeignKey('employees.id'), nullable=False)
 
-
-    citizen_requests = relationship('ClientRequest', back_populates='record')
-    consultations = relationship('Consultation', back_populates='record')
     citizen = relationship('Client', back_populates='records')
     employee = relationship('Employee', back_populates='records')
+
+
+class CitizenRequestCallRecord(CallRecord):
+    __tablename__ = 'citizen_request_call_records'
+    
+    citizen_request_id = Column(Integer, ForeignKey('citizen_requests.id'), \
+                                nullable=False)
+    citizen_request = relationship('ClientRequest', back_populates='record')
+
+
+class ConsultationCallRecord(CallRecord):
+    __tablename__ = 'consultation_call_records'
+
+    consultation_id = Column(Integer, ForeignKey('consultations.id'), \
+                             nullable=False)
+    consultation = relationship('Consultation', back_populates='record')
 
