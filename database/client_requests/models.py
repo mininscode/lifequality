@@ -22,13 +22,17 @@ class ClientRequest(Base):
                             nullable=False)
     citizen_feedback = Column(String(200), nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)
-    record_id = Column(Integer, ForeignKey('call_records.id'), nullable=True)
+    record_id = Column(Integer, ForeignKey('citizen_request_call_records.id'), \
+                                           nullable=True)
 
     citizen = relationship('Client', back_populates='citizen_requests')
     status = relationship('RequestStatus', back_populates='citizen_requests')
-    comments = relationship('Comment', back_populates='citizen_request')
     source = relationship('RequestSource', back_populates='citizen_requests')
-    record = relationship('CallRecord', back_populates='citizen_requests')
+    
+    record = relationship('CitizenRequestCallRecord', \
+                          back_populates='citizen_request', uselist=False)
+    
+    comments = relationship('Comment', back_populates='citizen_request')
     documents = relationship('RequestDocument', back_populates='request')
     comments = relationship('Comment', back_populates='citizen_request')
     likes =  relationship('Like', back_populates='citizen_request')
