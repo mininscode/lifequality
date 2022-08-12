@@ -22,7 +22,10 @@ class Client(Base):
     house = relationship('House', back_populates='citizens')
     user = relationship('User', back_populates='citizens')
     citizen_requests = relationship('ClientRequest', back_populates='citizen')
-    records = relationship('CallRecord', back_populates='citizen')
+    request_records = relationship('CitizenRequestCallRecord', \
+                                   back_populates='citizen')
+    consultation_records = relationship('ConsultationCallRecord', \
+                                        back_populates='citizen')
     
 class ClientPassport(Base):
     __tablename__ = 'citizens_passports'

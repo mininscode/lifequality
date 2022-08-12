@@ -20,4 +20,5 @@ class Contractor(Base):
     
     # TODO: add many-to-many relations with model House
     # TODO: add many-to-many relations with model Work
+    # TODO: add many-to-many relations with model ClientRequest
 
