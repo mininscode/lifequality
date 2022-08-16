@@ -2,6 +2,10 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, String, Boolean, Integer
 
 from database import Base
+from database.models_associations import association_client_request_with_work_table, \
+        association_contractor_with_work_table, \
+        association_request_document_with_work_table, \
+        association_contract_with_work_table
 
 
 class Work(Base):
@@ -12,7 +16,19 @@ class Work(Base):
     is_emergency = Column(Boolean, nullable=False, default=False)
     duration = Column(Integer, nullable=False)
 
-    # TODO: add many-to-many relations with model Contractor
-    # TODO: add many-to-many relations with model Contract
-    # TODO: add many-to-many relations witth model WorkOrder
+    contractors = relationship('Contractor', \
+            secondary=association_contractor_with_work_table, \
+            back_populates='works')
+
+    contracts = relationship('Contract', \
+            secondary=association_contract_with_work_table, \
+            back_populates='works')
+
+    citizen_requests = relationship('ClientRequest', \
+            secondary=association_client_request_with_work_table, \
+            back_populates='works')
+
+    requests_documents = relationship('RequestDocument', \
+            secondary=association_request_document_with_work_table, \
+            back_populates='works')
 

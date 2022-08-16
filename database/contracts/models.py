@@ -2,6 +2,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, ForeignKey, Integer, Boolean, Date
 
 from database import Base
+from database.models_associations import association_contract_with_work_table
 
 
 class Contract(Base):
@@ -19,5 +20,7 @@ class Contract(Base):
     contractor = relationship('Contractor', back_populates='contracts')
     house = relationship('House', back_populates='contracts')
 
-    # TODO: add many-to-many relations with model Contract
+    works = relationship('Work', \
+            secondary=association_contract_with_work_table, \
+            back_populates='contracts')
 

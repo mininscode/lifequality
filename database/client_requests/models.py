@@ -3,6 +3,10 @@ from sqlalchemy import Column, BigInteger, ForeignKey, String, Integer, \
                        Boolean, Text, DateTime
 
 from database import Base
+from database.models_associations import association_client_request_with_contractor_table, \
+        association_client_request_with_work_table, \
+        association_client_request_with_employee_table, \
+        association_client_request_with_consultation_table
 
 
 class ClientRequest(Base):
@@ -22,7 +26,6 @@ class ClientRequest(Base):
                             nullable=False)
     citizen_feedback = Column(String(200), nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)
-    # record_id = Column(Integer, ForeignKey('call_records.id'), nullable=True)
 
     citizen = relationship('Client', back_populates='citizen_requests')
     status = relationship('RequestStatus', back_populates='citizen_requests')
@@ -36,7 +39,19 @@ class ClientRequest(Base):
     comments = relationship('Comment', back_populates='citizen_request')
     likes =  relationship('Like', back_populates='citizen_request')
 
-    # TODO: add many-to-many relations with Contractor model
-    # TODO: add many-to-many relations with Work model
-    # TODO: add many-to-manu relations with Employee model
-    # TODO: add many-to-many relations with Consultation model
+    contractors = relationship('Conractor', \
+            secondary=association_client_request_with_contractor_table, \
+            back_populates='citizen_requests')
+
+    works = relationship('Work', \
+            secondary=association_client_request_with_work_table, \
+            back_populates='citizen_requests')
+
+    employees = relationship('Employee', \
+            secondary=association_client_request_with_employee_table, \
+            back_populates='citizen_requests')
+
+    consultations = relationship('Consultation', \
+            secondary=association_client_request_with_consultation_table, \
+            back_populates='citizen_requests')
+

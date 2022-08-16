@@ -3,6 +3,7 @@ from sqlalchemy import Column, BigInteger, Integer, Date, String, Boolean, \
                        ForeignKey
 
 from database import Base
+from database.models_associations import association_meeting_with_client_table
 
 
 class Meeting(Base):
@@ -16,5 +17,7 @@ class Meeting(Base):
 
     house = relationship('House', back_populates='meetings')
 
-    # TODO: add many-to-many relations with Client (Citizen) model
+    citizens = relationship('Client', \
+            secondary=association_meeting_with_client_table,
+            back_populates='meetings')
 

@@ -10,5 +10,5 @@ class HouseCondition(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String(50), nullable=False)
 
-    house = relationship('House', back_populates='condition')
+    houses = relationship('House', back_populates='condition')
 

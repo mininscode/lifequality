@@ -2,6 +2,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, ForeignKey, BigInteger, Integer, String
 
 from database import Base
+from database.models_associations import association_contractor_with_house_table
 
 
 class House(Base):
@@ -15,9 +16,13 @@ class House(Base):
     condition_id = Column(Integer, ForeignKey('house_conditions.id'), \
                        nullable=False)
     
+    condition = relationship('HouseCondition', back_populates='houses')
+    
     citizens = relationship('Client', back_populates='house')
-    conditions = relationship('HouseCondition', back_populates='conditions')
     contracts = relationship('Contracts', back_populates='house')
     meetings = relationship('Meeting', back_populates='house')
 
-    # TODO: add many-to-many relations with model Contractor
+    contractors = relationship('Contractor', \
+            secondary=association_contractor_with_house_table, \
+            back_populates='houses')
+

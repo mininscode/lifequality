@@ -16,3 +16,5 @@ from database.consultations.models import Consultation
 from database.request_documents.models import RequestDocument
 from database.comments.models import Comment
 from database.likes.models import Like
+
+from database.models_associations import *

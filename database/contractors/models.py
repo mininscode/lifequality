@@ -2,6 +2,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, ForeignKey, Integer, String, Boolean
 
 from database import Base
+from database.models_associations import association_client_request_with_contractor_table, \
+        association_contractor_with_house_table, \
+        association_contractor_with_work_table
 
 
 class Contractor(Base):
@@ -18,7 +21,15 @@ class Contractor(Base):
     contracts = relationship('Contract', back_populates='contractor')
     user = relationship('User', back_populates='contractors')
     
-    # TODO: add many-to-many relations with model House
-    # TODO: add many-to-many relations with model Work
-    # TODO: add many-to-many relations with model ClientRequest
+    houses = relationship('House', \
+            secondary=association_contractor_with_house_table, \
+            back_populates='contractors')
+
+    works = relationship('Work', \
+            secondary=association_contractor_with_work_table, \
+            back_populates='contractors')
+
+    citizen_requests = relationship('ClientRequest', \
+            secondary=association_client_request_with_contractor_table, \
+            back_populates='contractors')
 

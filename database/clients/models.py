@@ -3,7 +3,7 @@ from sqlalchemy import Column, ForeignKey, Integer, BigInteger, String, \
                        Boolean, Date
 
 from database import Base
-# from database.users.models import User
+from database.models_associations import association_meeting_with_client_table
 
 
 class Client(Base):
@@ -26,6 +26,11 @@ class Client(Base):
                                    back_populates='citizen')
     consultation_records = relationship('ConsultationCallRecord', \
                                         back_populates='citizen')
+
+    meetings = relationship('Meeting', \
+            secondary=association_meeting_with_client_table, \
+            back_populates='citizens')
+
     
 class ClientPassport(Base):
     __tablename__ = 'citizens_passports'

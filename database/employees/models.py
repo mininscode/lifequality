@@ -2,6 +2,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, Integer, String, ForeignKey
 
 from database import Base
+from database.models_associations import association_client_request_with_employee_table, \
+        association_consultation_with_employee_table
 
 
 class Employee(Base):
@@ -19,5 +21,11 @@ class Employee(Base):
     user = relationship('User', back_populates='employees')
     records = relationship('CallRecord', back_populates='records')
 
-    #TODO: add many-to-many relations with ClientRequest model
+    citizen_requests = relationship('ClientRequest', \
+            secondary=association_client_request_with_employee_table, \
+            back_populates='employees')
+
+    consultations = relationship('Consultation', \
+            secondary=association_consultation_with_employee_table, \
+            back_populates='employees')
 
