@@ -1,5 +1,6 @@
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, BigInteger, DateTime, String
+from sqlalchemy import Column, BigInteger, DateTime, String, ForeignKey, \
+                       Integer
 
 from database import  Base
 from database.models_associations import association_client_request_with_consultation_table, \
@@ -12,6 +13,8 @@ class Consultation(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     created_at = Column(DateTime, nullable=False)
     text = Column(String(200), nullable=False)
+    citizen_id = Column(Integer, ForeignKey('citizens.id'), \
+                        nullable=False)
 
     citizen = relationship('Client', back_populates='consultations')
     

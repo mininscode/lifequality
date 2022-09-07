@@ -2,6 +2,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, String, Boolean, Integer
 
 from database import Base
+from database.client_requests.models import ClientRequest
 from database.models_associations import association_client_request_with_work_table, \
         association_contractor_with_work_table, \
         association_request_document_with_work_table, \

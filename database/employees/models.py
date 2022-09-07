@@ -19,7 +19,7 @@ class Employee(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     user = relationship('User', back_populates='employees')
-    records = relationship('CallRecord', back_populates='records')
+    records = relationship('CallRecord', back_populates='employee')
 
     citizen_requests = relationship('ClientRequest', \
             secondary=association_client_request_with_employee_table, \

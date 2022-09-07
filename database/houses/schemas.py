@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
 from database.clients.schemas import Client
-# from database.treatments.schemas import Treatment
-# from database.meetings.schemas import Meeting
-# from database.contractors.schemas import Contractor
+from database.meetings.schemas import Meeting
+from database.contracts.schemas import Contract
+from database.contractors.schemas import Contractor
 
 
 class House(BaseModel):
@@ -15,9 +15,9 @@ class House(BaseModel):
     condition: str
 
     citizens: list[Client] = []
-    # treatments: list[Treatment] = []
-    # meetings: list[Meeting] = []
-    # contractors: list[Contractor] = []
+    meetings: list[Meeting] = []
+    contracts: list[Contract] = []
+    contractors: list[Contractor] = []
 
     class Config:
         orm_mode = True

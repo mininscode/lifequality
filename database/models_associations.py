@@ -66,7 +66,7 @@ association_meeting_with_client_table = Table(
 )
 
 association_request_document_with_work_table = Table(
-    'association_request_document_with work',
+    'association_request_document_with_work',
     Base.metadata,
     Column('request_document_id', ForeignKey('requests_documents.id'), \
             primary_key=True),

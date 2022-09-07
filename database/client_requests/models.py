@@ -3,6 +3,13 @@ from sqlalchemy import Column, BigInteger, ForeignKey, String, Integer, \
                        Boolean, Text, DateTime
 
 from database import Base
+from database.request_statuses.models import RequestStatus
+from database.request_sources.models import RequestSource
+from database.call_records.models import CallRecord
+from database.request_documents.models import RequestDocument
+from database.comments.models import Comment
+from database.likes.models import Like
+from database.consultations.models import Consultation
 from database.models_associations import association_client_request_with_contractor_table, \
         association_client_request_with_work_table, \
         association_client_request_with_employee_table, \
@@ -36,10 +43,9 @@ class ClientRequest(Base):
     
     comments = relationship('Comment', back_populates='citizen_request')
     documents = relationship('RequestDocument', back_populates='request')
-    comments = relationship('Comment', back_populates='citizen_request')
     likes =  relationship('Like', back_populates='citizen_request')
 
-    contractors = relationship('Conractor', \
+    contractors = relationship('Contractor', \
             secondary=association_client_request_with_contractor_table, \
             back_populates='citizen_requests')
 
