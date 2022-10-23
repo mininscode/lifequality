@@ -3,7 +3,6 @@
 from sqlalchemy.orm import Session
 
 from database.employees import models, schemas
-from validation_types import FullNameType
 
 
 # CREATE data in database
@@ -26,16 +25,6 @@ def create_employee(db: Session, employee: schemas.Employee):
 def get_employee_by_employee_number(db: Session, employee_number: int):
     return db.query(models.Employee).filter(\
            models.Employee.employee_number == employee_number).first()
-
-def get_employee_by_fullname(db: Session, fullname: FullNameType):
-    name = fullname['name']
-    surname = fullname['surname']
-    patronymic = fullname['patronymic']
-
-    return db.query(models.Employee).filter(\
-           models.Employee.name == name).filter(\
-           models.Employee.surname == surname).filter(\
-           models.Employee.patronymic == patronymic).first()
 
 def get_employee_by_user_id(db: Session, user_id: int):
     return db.query(models.Employee).filter(models.Employee.user_id == \
@@ -61,7 +50,7 @@ def get_all_employees_by_department(db: Session, department: str, \
     return db.query(models.Employee).filter(models.Employee.department == \
            department).offset(skip).limit(limit).all()
 
-def get_all_empoyees_by_position(db: Session, position: str, \
+def get_all_employees_by_position(db: Session, position: str, \
                                  skip: int = 0, limit: int = 100):
     return db.query(models.Employee).filter(models.Employee.position == \
            position).offset(skip).limit(limit).all()
@@ -70,59 +59,54 @@ def get_all_employees(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Employee).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_employee_name(db: Session, employee_number: int, name: str):
-    db_employee = get_employee_by_employee_number(db, employee_number)
-    db_employee.name = name
+def update_employee_name(db: Session, employee: schemas.Employee, name: str):
+    employee.name = name
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
-def update_employee_surname(db: Session, employee_number: int, surname: str):
-    db_employee = get_employee_by_employee_number(db, employee_number)
-    db_employee.surname = surname
+def update_employee_surname(db: Session, employee: schemas.Employee, \
+                            surname: str):
+    employee.surname = surname
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
-def update_employee_patronymic(db: Session, employee_number: int, \
+def update_employee_patronymic(db: Session, employee: schemas.Employee, \
                                patronymic: str):
-    db_employee = get_employee_by_employee_number(db, employee_number)
-    db_employee.patronymic = patronymic
+    employee.patronymic = patronymic
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
-def update_employee_department(db: Session, employee_number: int, \
+def update_employee_department(db: Session, employee: schemas.Employee, \
                                department: str):
-    db_employee = get_employee_by_employee_number(db, employee_number)
-    db_employee.department = department
+    employee.department = department
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
-def update_employee_position(db: Session, employee_number: int, position: str):
-    db_employee = get_employee_by_employee_number(db, employee_number)
-    db_employee.position = position
+def update_employee_position(db: Session, employee: schemas.Employee, \
+                             position: str):
+    employee.position = position
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
 def update_employee_employee_number(db: Session, \
-                                    employee_number_current: int, \
-                                    employee_number_new: int):
-    db_employee = get_employee_by_employee_number(db, employee_number_current)
-    db_employee.employee_number = employee_number_new
+                                    employee: schemas.Employee, \
+                                    new_employee_number: int):
+    employee.employee_number = new_employee_number
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
-def update_employee_user_id(db: Session, user_id_current: int, \
-                            user_id_new: int):
-    db_employee = get_employee_by_user_id(db, user_id_current)
-    db_employee.user_id = user_id
+def update_employee_user_id(db: Session, employee: schemas.Employee, \
+                            new_user_id: int):
+    employee.user_id = new_user_id
     db.commit()
-    db.refresh(db_employee)
-    return db_employee
+    db.refresh(employee)
+    return employee
 
 # DELETE data from database
 def delete_employee(db: Session, employee_number: int):
