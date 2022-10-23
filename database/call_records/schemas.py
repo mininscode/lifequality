@@ -8,6 +8,7 @@ class CallRecord(BaseModel):
     created_at: datetime
     citizen_id: int
     employee_id: int
+    citizen_request_id: int
 
     class Config:
         orm_mode = True
