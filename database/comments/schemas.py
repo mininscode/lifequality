@@ -5,7 +5,7 @@ from pydantic import BaseModel
 class Comment(BaseModel):
     id: int
     text: str
-    author: str
+    author_id: int
     created_at: datetime
     citizen_request_id: int
     

@@ -10,7 +10,7 @@ from database.comments import models, schemas
 def create_comment(db: Session, comment: schemas.Comment):
     db_comment = models.Comment(
         text=comment.text,
-        author=comment.author,
+        author_id=comment.author_id,
         created_at=comment.created_at,
         citizen_request_id=comment.citizen_request_id
     )
@@ -24,11 +24,11 @@ def get_comment_by_id(db: Session, comment_id: int):
     return db.query(models.Comment).filter(\
                     models.Comment.id == comment_id).first()
 
-def get_comments_by_author(db: Session, author: str, skip: int = 0, \
-                           limit: int = 100):
+def get_comments_by_author_id(db: Session, author_id: int, skip: int = 0, \
+                              limit: int = 100):
     return db.query(models.Comment).filter(\
-                    models.Comment.author == \
-                    author).offset(skip).limit(limit).all()
+                    models.Comment.author_id == \
+                    author_id).offset(skip).limit(limit).all()
 
 def get_comments_by_created_at(db: Session, created_at: datetime, \
                                skip: int = 0, limit: int = 100):
@@ -46,35 +46,32 @@ def get_all_comments(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Comment).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_comment_text(db: Session, comment_id: int, new_text: str):
-    db_comment = get_comment_by_id(db, comment_id)
-    db_comment.text = new_text
+def update_comment_text(db: Session, comment: schemas.Comment, new_text: str):
+    comment.text = new_text
     db.commit()
-    db.refresh(db_comment)
-    return db_comment
+    db.refresh(comment)
+    return comment
 
-def update_comment_author(db: Session, comment_id: int, new_author: str):
-    db_comment = get_comment_by_id(db, comment_id)
-    db_comment.author = new_author
+def update_comment_author_id(db: Session, comment: schemas.Comment, \
+                             new_author_id: int):
+    comment.author_id = new_author_id
     db.commit()
-    db.refresh(db_comment)
-    return db_comment
+    db.refresh(comment)
+    return comment
 
-def update_comment_create_date(db: Session, comment_id: int, \
+def update_comment_create_date(db: Session, comment: schemas.Comment, \
                                created_at: datetime):
-    db_comment = get_comment_by_id(db, comment_id)
-    db_comment.created_at = created_at
+    comment.created_at = created_at
     db.commit()
-    db.refresh(db_comment)
-    return db_comment
+    db.refresh(comment)
+    return comment
 
-def update_comment_citizen_request_id(db: Session, comment_id: int, \
+def update_comment_citizen_request_id(db: Session, comment: schemas.Comment, \
                                       citizen_request_id: int):
-    db_comment = get_comment_by_id(db, comment_id)
-    db_comment.citizen_request_id = citizen_request_id
+    comment.citizen_request_id = citizen_request_id
     db.commit()
-    db.refresh(db_comment)
-    return db_comment
+    db.refresh(comment)
+    return comment
 
 # DELETE data from database
 def delete_comment(db: Session, comment_id: int):
