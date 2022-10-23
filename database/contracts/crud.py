@@ -26,6 +26,10 @@ def get_contract_by_id(db: Session, contract_id: int):
     return db.query(models.Contract).filter(\
                     models.Contract.id == contract_id).first()
 
+def get_contract_by_contract_number(db: Session, contract_number: int):
+    return db.query(models.Contract).filter(\
+                    models.Contract.contract_number == contract_number).first()
+
 def get_contracts_by_contract_date(db: Session, contract_date: date, \
                                    skip: int = 0, limit: int = 100):
     return db.query(
@@ -33,7 +37,7 @@ def get_contracts_by_contract_date(db: Session, contract_date: date, \
             models.Contract.contract_date == \
             contract_date).offset(skip).limit(limit).all()
 
-def get_contract_by_expiration_date(db: Session, expiration_date: date, \
+def get_contracts_by_expiration_date(db: Session, expiration_date: date, \
                                     skip: int = 0, limit: int = 100):
     return db.query(models.Contract).filter(\
             models.Contract.expiration_date == \
@@ -50,6 +54,7 @@ def get_contracts_by_house_id(db: Session, house_id: int, skip: int = 0, \
     return db.query(models.Contract).filter(\
             models.Contract.house_id == \
             house_id).offset(skip).limit(limit).all()
+
 def get_contracts_by_active_status(db: Session, is_active: bool, \
                                    skip: int = 0, limit: int = 100):
     return db.query(models.Contract).filter(\
@@ -60,51 +65,47 @@ def get_all_contracts(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Contract).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_contract_number(db: Session, contract_id: int, \
+def update_contract_number(db: Session, contract: schemas.Contract, \
                            new_contract_number: int):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.contract_number = new_contract_number
+    contract.contract_number = new_contract_number
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
-def update_contract_date(db: Session, contract_id: int, \
-                         new_contract_date: date):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.contract_date = new_contract_date
+def update_contract_contract_date(db: Session, contract: schemas.Contract, \
+                                  new_contract_date: date):
+    contract.contract_date = new_contract_date
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
-def update_contract_expiration_date(db: Session, contract_id: int, \
+def update_contract_expiration_date(db: Session, contract: schemas.Contract, \
                                     new_expiration_date: date):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.expiration_date = new_expiration_date
+    contract.expiration_date = new_expiration_date
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
-def update_contract_contractor_id(db: Session, contract_id: int, \
+def update_contract_contractor_id(db: Session, contract: schemas.Contract, \
                                   new_contractor_id: int):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.contractor_id = new_contractor_id
+    contract.contractor_id = new_contractor_id
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
-def update_contract_house_id(db: Session, contract_id: int, new_house_id: int):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.house_id = new_house_id
+def update_contract_house_id(db: Session, contract: schemas.Contract, \
+                             new_house_id: int):
+    contract.house_id = new_house_id
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
-def update_contract_active_status(db: Session, contract_id: int, status: bool):
-    db_contract = get_contract_by_id(db, contract_id)
-    db_contract.is_active = status
+def update_contract_active_status(db: Session, contract: schemas.Contract, \
+                                  status: bool):
+    contract.is_active = status
     db.commit()
-    db.refresh(db_contract)
-    return db_contract
+    db.refresh(contract)
+    return contract
 
 # DELETE data from database
 def delete_contract(db: Session, contract_id: int):
