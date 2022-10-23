@@ -6,8 +6,7 @@ class Consultation(BaseModel):
     id: int
     created_at: datetime
     text: str
-    employee_id: int
-    record_id: int
+    citizen_id: int
 
     class Config:
         orm_mode = True
