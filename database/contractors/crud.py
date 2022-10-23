@@ -12,8 +12,8 @@ def create_contractor(db: Session, contractor: schemas.Contractor):
         city=contractor.city,
         street=contractor.street,
         building=contractor.building,
-        contract_id=contractor.contract_id,
-        user_id=contractor.user_id
+        user_id=contractor.user_id,
+        is_emergency_service=contractor.is_emergency_service
     )
     db.add(db_contractor)
     db.commit()
@@ -29,10 +29,6 @@ def get_contractor_by_name(db: Session, contractor_name: str):
     return db.query(models.Contractor).filter(\
                     models.Contractor.name == contractor_name).first()
 
-def get_contractor_by_contract_id(db: Session, contract_id: int):
-    return db.query(models.Contractor).filter(\
-                    models.Contractor.contract_id == contract_id).first()
-
 def get_contractor_by_user_id(db: Session, user_id: int):
     return db.query(models.Contractor).filter(\
                     models.Contractor.user_id == user_id).first()
@@ -44,63 +40,61 @@ def get_contractors_by_emergency_service_status(db: Session, \
     return db.query(models.Contractor).filter(\
                     models.Contractor.is_emergency_service == \
                     emergency_status).offset(skip).limit(limit).all()
-def get_all_contrators(db: Session, skip: int = 0, limit: int = 100):
+
+def get_all_contractors(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Contractor).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_contractor_name(db: Session, contractor_id: int, new_name: str):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.name = new_name
+def update_contractor_name(db: Session, contractor: schemas.Contractor, \
+                           new_name: str):
+    contractor.name = new_name
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_city(db: Session, contractor_id: int, new_city: str):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.city = new_city
+def update_contractor_city(db: Session, contractor: schemas.Contractor, \
+                           new_city: str):
+    contractor.city = new_city
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_street(db: Session, contractor_id: int, \
+def update_contractor_street(db: Session, contractor: schemas.Contractor, \
                              new_street: str):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.street = new_street
+    contractor.street = new_street
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_building(db: Session, contractor_id: int, \
+def update_contractor_building(db: Session, contractor: schemas.Contractor, \
                                new_building: int):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.building = new_building
+    contractor.building = new_building
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_contract_id(db: Session, contractor_id: int, \
+def update_contractor_contract_id(db: Session, \
+                                  contractor: schemas.Contractor, \
                                   new_contract_id: int):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.contract_id = new_contract_id
+    contractor.contract_id = new_contract_id
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_user_id(db: Session, contractor_id: int, \
+def update_contractor_user_id(db: Session, contractor: schemas.Contractor, \
                               new_user_id: int):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.user_id = new_user_id
+    contractor.user_id = new_user_id
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
-def update_contractor_emergency_status(db: Session, contractor_id: int, \
+def update_contractor_emergency_status(db: Session, \
+                                       contractor: schemas.Contractor, \
                                        new_emergency_status: bool):
-    db_contractor = get_contractor_by_id(db, contractor_id)
-    db_contractor.is_emegrency_service = new_emergency_status
+    contractor.is_emegrency_service = new_emergency_status
     db.commit()
-    db.refresh(db_contractor)
-    return db_contractor
+    db.refresh(contractor)
+    return contractor
 
 # DELETE data from database
 def delete_contractor(db: Session, contractor_id: int):
