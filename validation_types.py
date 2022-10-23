@@ -11,6 +11,7 @@ class AddressType(TypedDict):
     street: str
     house_number: int
 
+
 class FullNameType(TypedDict):
     """Type for validation fullname"""
 
