@@ -5,7 +5,7 @@ from pydantic import BaseModel
 class ClientBase(BaseModel):
     name: str
     surname: str
-    patronymic: str | None
+    patronymic: str
 
 class ClientPassport(BaseModel):
     id: int
@@ -25,7 +25,6 @@ class Client(ClientBase):
     flat_number: int
     is_registered: bool
     user_id: int
-    passports: list[ClientPassport]
 
     class Config:
         orm_mode = True

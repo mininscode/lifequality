@@ -28,7 +28,7 @@ class Client(Base):
     meetings = relationship('Meeting', \
             secondary=association_meeting_with_client_table, \
             back_populates='citizens')
-
+    
     
 class ClientPassport(Base):
     __tablename__ = 'citizens_passports'
