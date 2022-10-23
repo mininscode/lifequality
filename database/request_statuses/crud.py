@@ -26,12 +26,12 @@ def get_all_request_statuses(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.RequestStatus).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_request_status_name(db: Session, status_id: int, new_name: str):
-    db_status = get_request_status_by_id(db, status_id)
-    db_status.name = new_name
+def update_request_status_name(db: Session, status: schemas.RequestStatus, \
+                               new_name: str):
+    status.name = new_name
     db.commit()
-    db.refresh(db_status)
-    return db_status
+    db.refresh(status)
+    return status
 
 # DELETE data from database
 def delete_request_status(db: Session, status_id: int):
