@@ -1,7 +1,5 @@
 from pydantic import BaseModel, EmailStr
 
-from database.clients.models import Client
-
 
 class UserBase(BaseModel):
     email: EmailStr
@@ -13,8 +11,10 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    clients: list[Client]
 
     class Config:
         orm_mode = True
-        arbitrary_types_allowed = True
+
+class UserInDB(User):
+    hashed_password: str
+

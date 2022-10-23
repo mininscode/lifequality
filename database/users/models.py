@@ -5,6 +5,8 @@ from database import Base
 from database.contractors.models import Contractor
 from database.employees.models import Employee
 from database.clients.models import Client
+from database.comments.models import Comment
+from database.likes.models import Like
 
 
 class User(Base):
@@ -20,4 +22,6 @@ class User(Base):
     citizens = relationship('Client', back_populates='user')
     contractors = relationship('Contractor', back_populates='user')
     employees = relationship('Employee', back_populates='user')
+    comments = relationship('Comment', back_populates='user')
+    likes = relationship('Like', back_populates='user')
 
