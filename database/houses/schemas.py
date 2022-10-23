@@ -12,13 +12,8 @@ class House(BaseModel):
     district: str
     street: str
     house_number: str
-    condition: str
-
-    citizens: list[Client] = []
-    meetings: list[Meeting] = []
-    contracts: list[Contract] = []
-    contractors: list[Contractor] = []
-
+    condition_id: int
+    
     class Config:
         orm_mode = True
 
