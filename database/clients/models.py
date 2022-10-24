@@ -18,19 +18,17 @@ class Client(Base):
     is_registered = Column(Boolean, default=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
     
-    passports = relationship('ClientPassport', back_populates='citizen')
     house = relationship('House', back_populates='citizens')
     user = relationship('User', back_populates='citizens')
+    
+    passports = relationship('ClientPassport', back_populates='citizen')
     citizen_requests = relationship('ClientRequest', back_populates='citizen')
-    request_records = relationship('CitizenRequestCallRecord', \
-                                   back_populates='citizen')
-    consultation_records = relationship('ConsultationCallRecord', \
-                                        back_populates='citizen')
-
+    consultations = relationship('Consultation', back_populates='citizen')
+    records = relationship('CallRecord', back_populates='citizen')
     meetings = relationship('Meeting', \
             secondary=association_meeting_with_client_table, \
             back_populates='citizens')
-
+    
     
 class ClientPassport(Base):
     __tablename__ = 'citizens_passports'

@@ -31,27 +31,24 @@ def get_all_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_user_email(db: Session, user_id: int, email: EmailStr):
-    db_user = get_user_by_user_id(db, user_id)
-    db_user.email = email
+def update_user_email(db: Session, user: schemas.User, email: EmailStr):
+    user.email = email
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
 
-def update_user_phone(db: Session, user_id: int, phone: str):
-    db_user = get_user_by_user_id(db, user_id)
-    db_user.phone = phone
+def update_user_phone(db: Session, user: schemas.User, phone: str):
+    user.phone = phone
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
 
-def update_user_password(db: Session, user_id: int, password: str):
-    db_user = get_user_by_user_id(db, user_id)
+def update_user_password(db: Session, user: schemas.User, password: str):
     hashed_password = hash_password(password)
-    db_user.hashed_password = hashed_password
+    user.hashed_password = hashed_password
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
 
 # DELETE data from database
 def delete_user(db: Session, user_id: int):

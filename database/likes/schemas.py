@@ -6,7 +6,7 @@ class Like(BaseModel):
     id: int
     citizen_request_id: int
     count: int
-    author: str
+    author_id: int
     created_at: datetime
 
     class Config:

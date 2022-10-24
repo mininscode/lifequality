@@ -27,8 +27,10 @@ def get_request_document_by_id(db: Session, document_id: int):
                     models.RequestDocument.id == document_id).first()
 
 def get_request_documents_by_document_type(db: Session, document_type: \
-                                           Literal['work_order'] | \
-                                           Literal['act_of_done_works'], \
+                                           Literal['act', \
+                                                   'document', \
+                                                   'photo', \
+                                                   'video'], \
                                            skip: int = 0, limit: int = 100):
     return db.query(models.RequestDocument).filter(\
                     models.RequestDocument.document_type == \
@@ -40,9 +42,9 @@ def get_request_documents_by_created_at(db: Session, created_at: datetime, \
                     models.RequestDocument.created_at == \
                     created_at).offset(skip).limit(limit).all()
 
-def get_request_documents_by_citizen_request_id(db: Session, request_id: int, \
-                                                skip: int = 0, \
-                                                limit: int = 100):
+def get_request_documents_by_request_id(db: Session, request_id: int, \
+                                        skip: int = 0, \
+                                        limit: int = 100):
     return db.query(models.RequestDocument).filter(\
                     models.RequestDocument.citizen_request_id == \
                     request_id).offset(skip).limit(limit).all()
@@ -53,47 +55,52 @@ def get_request_documents_by_contractor_id(db: Session, contractor_id: int, \
                     models.RequestDocument.contractor_id == \
                     contractor_id).offset(skip).limit(limit).all()
 
+def get_all_request_documents(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.RequestDocument).offset(skip).limit(limit).all()
+
 # UPDATE data in database
-def update_request_document_type(db: Session, document_id: int, \
-                                 document_type: Literal['work_order'] | \
-                                 Literal['act_of_done_works']):
-    db_document = get_request_document_by_id(db, document_id)
-    db_document.document_type = document_type
+def update_document_type(db: Session, \
+                         document: schemas.RequestDocument, \
+                         document_type: Literal['act', \
+                                                'document', \
+                                                'photo', \
+                                                'video']):
+    document.document_type = document_type
     db.commit()
-    db.refresh(db_document)
-    return db_document
+    db.refresh(document)
+    return document
 
-def update_request_document_file_path(db: Session, document_id: int, \
-                                      new_file_path: str):
-    db_document = get_request_document_by_id(db, document_id)
-    db_document.file_path = new_file_path
+def update_document_file_path(db: Session, \
+                              document: schemas.RequestDocument, \
+                              new_file_path: str):
+    document.file_path = new_file_path
     db.commit()
-    db.refresh(db_document)
-    return db_document
+    db.refresh(document)
+    return document
 
-def update_request_document_create_date(db: Session, document_id: int, \
-                                        created_at: datetime):
-    db_document = get_request_document_by_id(db, document_id)
-    db_document.created_at = created_at
+def update_document_create_date(db: Session, \
+                                document: schemas.RequestDocument, \
+                                created_at: datetime):
+    document.created_at = created_at
     db.commit()
-    db.refresh(db_document)
-    return db_document
+    db.refresh(document)
+    return document
 
-def update_request_document_citizen_request_id(db: Session, document_id: int, \
-                                               citizen_request_id: int):
-    db_document = get_request_document_by_id(db, document_id)
-    db_document.citizen_request_id = citizen_request_id
+def update_document_citizen_request_id(db: Session, \
+                                       document: schemas.RequestDocument, \
+                                       citizen_request_id: int):
+    document.citizen_request_id = citizen_request_id
     db.commit()
-    db.refresh(db_document)
-    return db_document
+    db.refresh(document)
+    return document
 
-def update_request_document_contractor_id(db: Session, document_id: int, \
-                                          contractor_id: int):
-    db_document = get_request_document_by_id(db, document_id)
-    db_document.contractor_id = contractor_id
+def update_document_contractor_id(db: Session, \
+                                  document: schemas.RequestDocument, \
+                                  contractor_id: int):
+    document.contractor_id = contractor_id
     db.commit()
-    db.refresh(db_document)
-    return db_document
+    db.refresh(document)
+    return document
 
 # DELETE data from database
 def delete_request_document(db: Session, document_id: int):

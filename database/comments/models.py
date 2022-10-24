@@ -10,11 +10,12 @@ class Comment(Base):
 
     id = Column(BigInteger, primary_key=True, index=True)
     text = Column(String(250), nullable=False)
-    author = Column(String(150), nullable=False)
+    author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     created_at = Column(DateTime, nullable=False)
     citizen_request_id = Column(Integer, ForeignKey('citizen_requests.id'), \
                                 nullable=False)
 
+    user = relationship('User', back_populates='comments')
     citizen_request = relationship('ClientRequest', \
                                    back_populates='comments')
 

@@ -12,8 +12,9 @@ class Like(Base):
     citizen_request_id = Column(Integer, ForeignKey('citizen_requests.id'), \
                                 nullable=False)
     count = Column(Integer, nullable=False)
-    author = Column(String(50), nullable=False)
+    author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     created_at = Column(DateTime, nullable=False)
 
     citizen_request = relationship('ClientRequest', back_populates='likes')
+    user = relationship('User', back_populates='likes')
 

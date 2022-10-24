@@ -2,6 +2,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, ForeignKey, Integer, Boolean, Date
 
 from database import Base
+from database.works.models import Work
 from database.models_associations import association_contract_with_work_table
 
 

@@ -2,6 +2,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, BigInteger, ForeignKey, Integer, String, Boolean
 
 from database import Base
+from database.contracts.models import Contract
+from database.houses.models import House
 from database.models_associations import association_client_request_with_contractor_table, \
         association_contractor_with_house_table, \
         association_contractor_with_work_table

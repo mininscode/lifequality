@@ -24,6 +24,10 @@ def get_meeting_by_id(db: Session, meeting_id: int):
     return db.query(models.Meeting).filter(\
                     models.Meeting.id == meeting_id).first()
 
+def get_meeting_by_meeting_record(db: Session, record: str):
+    return db.query(models.Meeting).filter(\
+                    models.Meeting.meeting_record == record).first()
+
 def get_meetings_by_house_id(db: Session, house_id: int, skip: int = 0, \
                              limit: int = 100):
     return db.query(models.Meeting).filter(\
@@ -36,38 +40,43 @@ def get_meetings_by_legal_status(db: Session, is_legal: bool, skip: int = 0, \
                     models.Meeting.is_legal == \
                     is_legal).offset(skip).limit(limit).all()
 
-def get_all_meetinga(db: Session, skip: int = 0, limit: int = 100):
+def get_meetings_by_meeting_date(db: Session, meeting_date: date, \
+                                 skip: int = 0, limit: int = 100):
+    return db.query(models.Meeting).filter(\
+                    models.Meeting.meeting_date == \
+                    meeting_date).offset(skip).limit(limit).all()
+
+def get_all_meetings(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Meeting).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_meeting_date(db: Session, meeting_id: int, new_date: date):
-    db_meeting = get_meeting_by_id(db, meeting_id)
-    db_meeting.meeting_date = new_date
+def update_meeting_date(db: Session, meeting: schemas.Meeting, \
+                        new_date: date):
+    meeting.meeting_date = new_date
     db.commit()
-    db.refresh(db_meeting)
-    return db_meeting
+    db.refresh(meeting)
+    return meeting
 
-def update_meeting_house_id(db: Session, meeting_id: int, new_house_id: int):
-    db_meeting = get_meeting_by_id(db, meeting_id)
-    db_meeting.house_id = new_house_id
+def update_meeting_house_id(db: Session, meeting: schemas.Meeting, \
+                            new_house_id: int):
+    meeting.house_id = new_house_id
     db.commit()
-    db.refresh(db_meeting)
-    return db_meeting
+    db.refresh(meeting)
+    return meeting
 
-def update_meeting_legal_status(db: Session, meeting_id: int, is_legal: bool):
-    db_meeting = get_meeting_by_id(db, meeting_id)
-    db_meeting.is_legal = is_legal
+def update_meeting_legal_status(db: Session, meeting: schemas.Meeting, \
+                                is_legal: bool):
+    meeting.is_legal = is_legal
     db.commit()
-    db.refresh(db_meeting)
-    return db_meeting
+    db.refresh(meeting)
+    return meeting
 
-def update_meeting_record(db: Session, meeting_id: int, \
+def update_meeting_record(db: Session, meeting: schemas.Meeting, \
                           new_meeting_record: str):
-    db_meeting = get_meeting_by_id(db, meeting_id)
-    db_meeting.meeting_record = new_meeting_record
+    meeting.meeting_record = new_meeting_record
     db.commit()
-    db.refresh(db_meeting)
-    return db_meeting
+    db.refresh(meeting)
+    return meeting
 
 # DELETE data from database
 def delete_meeting(db: Session, meeting_id: int):

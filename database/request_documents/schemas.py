@@ -5,7 +5,7 @@ from typing import Literal
 
 class RequestDocument(BaseModel):
     id: int
-    document_type: Literal['work_order'] | Literal['act_of_done_works']
+    document_type: Literal['act', 'document', 'photo', 'video']
     file_path: str
     created_at: datetime
     citizen_request_id: int

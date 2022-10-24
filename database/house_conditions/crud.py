@@ -25,10 +25,9 @@ def get_all_conditions(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.HouseCondition).offset(skip).limit(limit).all()
 
 # UPDATE data in database
-def update_condition(db: Session, condition_name_current: str, \
-                     condition_name_new: str):
-    db_condition = get_condition_by_name(db, condition_name_current)
-    db_condition.name = condition_name_new
+def update_condition(db: Session, current_name: str, new_name: str):
+    db_condition = get_condition_by_name(db, current_name)
+    db_condition.name = new_name
     db.commit()
     db.refresh(db_condition)
     return db_condition

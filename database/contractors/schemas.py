@@ -7,7 +7,6 @@ class Contractor(BaseModel):
     city: str
     street: str
     building: int
-    contract_id: int
     user_id: int
     is_emergency_service: bool
 
