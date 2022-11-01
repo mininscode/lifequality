@@ -1,6 +1,5 @@
 from fastapi import Header, HTTPException
 
-
 async def get_token_header(x_token: str = Header(default='super_secret_token')):
     if x_token != "super_secret_token": #TODO: add real token generation
         raise HTTPException(status_code=400, detail="X-token header invalid")
